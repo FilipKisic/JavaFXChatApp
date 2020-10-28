@@ -16,7 +16,7 @@
             </HBox.margin>
             <Image url="@../images/default-profile.png" />
         </ImageView>
-        <Label fx:id="tfContactName" text="Name Surname" textFill="WHITE">
+        <Label fx:id="tfContactName" text="Name Surname">
             <font>
                 <Font name="Segoe UI Bold" size="36.0" />
             </font>

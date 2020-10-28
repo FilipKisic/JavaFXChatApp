@@ -5,6 +5,7 @@ import hr.algebra.dal.RepositoryFactory;
 import hr.algebra.dal.UserHolderSingleton;
 import hr.algebra.model.AppUser;
 import hr.algebra.utils.DialogUtils;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,12 +46,18 @@ public class LoginController implements Initializable {
                 else{
                     UserHolderSingleton userHolder = UserHolderSingleton.getInstance();
                     userHolder.setUser(user.get());
-                    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("view/main.fxml")));
+                    FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("view/main.fxml")));
+                    Parent root = loader.load();
+                    Controller controller = loader.getController();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root, 1200, 675));
                     stage.setTitle("Chat App");
                     stage.setResizable(false);
                     stage.sizeToScene();
+                    stage.setOnHidden(e -> {
+                        controller.stopApplication();
+                        Platform.exit();
+                    });
                     stage.show();
                     ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
                 }

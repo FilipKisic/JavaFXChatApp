@@ -1,5 +1,9 @@
-#hBoxTitle, #hBoxContactInfo, #vBoxContacts{
+#hBoxTitle, #vBoxContacts, #hboxBottom{
     -fx-background-color: #0B132B;
+}
+
+#hBoxContactInfo{
+    -fx-background-color: #FFF;
 }
 
 .chatButton, .settingsButton, #btnEmoticon, #btnSend{
@@ -22,10 +26,6 @@
 
 .settingsButton:selected{
     -fx-background-image: url('/images/settings-active.png');
-}
-
-#hboxBottom{
-    -fx-background-color: #0B132B;
 }
 
 #btnEmoticon{
@@ -52,8 +52,8 @@
 }
 
 .myMessage{
-    -fx-background-color: #6FFFE9;
-    -fx-text-fill: black;
+    -fx-background-color: #1C2541;
+    -fx-text-fill: white;
     -fx-padding: 10 20 10 20;
     -fx-font-family: 'Segoe UI';
     -fx-font-size: 18 px;
