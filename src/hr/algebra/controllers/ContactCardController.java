@@ -2,15 +2,12 @@ package hr.algebra.controllers;
 
 import hr.algebra.dal.ContactHolderSingleton;
 import hr.algebra.model.Contact;
+import hr.algebra.model.Transferable;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -24,6 +21,7 @@ public class ContactCardController implements Initializable {
     private Label lbFullName;
     private Contact contact;
     private final ContactHolderSingleton contactHolder = ContactHolderSingleton.getInstance();
+    private Transferable contactTransfer;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -48,7 +46,7 @@ public class ContactCardController implements Initializable {
 
     /* !!! PROBLEM Need to call initializeContactTitle in Controller to draw new pane !!!*/
     private void loadContact() {
-        try{
+        /*try{
             FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource("view/contactTitle.fxml"));
             Parent root = loader.load();
             ContactTitleController controllerTitle = loader.getController();
@@ -58,7 +56,8 @@ public class ContactCardController implements Initializable {
             stage.show();
         }catch(Exception ex){
             ex.printStackTrace();
-        }
+        }*/
+        contactTransfer.transfer(contact);
     }
 
 }

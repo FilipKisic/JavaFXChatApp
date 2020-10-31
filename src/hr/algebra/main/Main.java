@@ -1,5 +1,6 @@
 package hr.algebra.main;
 
+import hr.algebra.model.Contact;
 import hr.algebra.utils.ReflectionUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +22,10 @@ public class Main extends Application {
         primaryStage.sizeToScene();
         primaryStage.show();
 
-        ReflectionUtils.createDocumentation();
+        //ReflectionUtils.createDocumentation();
+        StringBuilder info = new StringBuilder();
+        ReflectionUtils.readClassAndMembersInfo(Contact.class);
+        System.out.println(info);
     }
 
 
