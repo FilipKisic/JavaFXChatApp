@@ -23,9 +23,7 @@ public class Main extends Application {
         primaryStage.show();
 
         //ReflectionUtils.createDocumentation();
-        StringBuilder info = new StringBuilder();
         ReflectionUtils.readClassAndMembersInfo(Contact.class);
-        System.out.println(info);
     }
 
 

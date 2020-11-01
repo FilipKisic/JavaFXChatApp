@@ -1,6 +1,6 @@
 package hr.algebra.controllers;
 
-import hr.algebra.dal.UserHolderSingleton;
+import hr.algebra.dal.PaneHolderSingleton;
 import hr.algebra.utils.FxmlLoader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.awt.event.ActionEvent;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -24,7 +23,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
-    private static final String FILE_NAME = "userMessages.dat";
+    private static final String FILE_NAME = "data/userMessages.dat";
     @FXML
     public Button btnEmoticon;
     @FXML
@@ -44,11 +43,12 @@ public class Controller implements Initializable {
     @FXML
     private VBox vbChat;
     private List<String> userMessages;
+    private PaneHolderSingleton paneHolder;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserHolderSingleton userHolder = UserHolderSingleton.getInstance();
-        //AppUser user = userHolder.getUser();
+        /*UserHolderSingleton userHolder = UserHolderSingleton.getInstance();
+        AppUser user = userHolder.getUser();*/
         tfTextContent.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
         initializeBottomMenu();
         initializeContactTitle();
@@ -66,6 +66,8 @@ public class Controller implements Initializable {
 
     public void initializeContactTitle() {
         Pane pane = new FxmlLoader().getScene("contactTitle");
+        paneHolder = PaneHolderSingleton.getInstance();
+        paneHolder.setPane(bpContact);
         bpContact.setCenter(pane);
     }
 
@@ -102,11 +104,6 @@ public class Controller implements Initializable {
         btnSend.fire();
     }
 
-    @FXML
-    public void exitApplication(ActionEvent event){
-        Platform.exit();
-    }
-
     public void stopApplication() {
         saveData();
         Platform.exit();
@@ -137,5 +134,4 @@ public class Controller implements Initializable {
 
 /* TODO:
  *   - contact onClick load chat
- *   - set chat for selected contact
  */

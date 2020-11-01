@@ -1,12 +1,14 @@
 package hr.algebra.controllers;
 
 import hr.algebra.dal.ContactHolderSingleton;
+import hr.algebra.dal.PaneHolderSingleton;
 import hr.algebra.model.Contact;
-import hr.algebra.model.Transferable;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -21,13 +23,14 @@ public class ContactCardController implements Initializable {
     private Label lbFullName;
     private Contact contact;
     private final ContactHolderSingleton contactHolder = ContactHolderSingleton.getInstance();
-    private Transferable contactTransfer;
+    private PaneHolderSingleton paneHolder;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.contact = contactHolder.getContact();
         lbFullName.setText(contact.getFullName());
         setImage();
+        paneHolder = PaneHolderSingleton.getInstance();
     }
 
     private void setImage() {
@@ -44,20 +47,17 @@ public class ContactCardController implements Initializable {
         loadContact();
     }
 
-    /* !!! PROBLEM Need to call initializeContactTitle in Controller to draw new pane !!!*/
     private void loadContact() {
-        /*try{
+        try{
             FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource("view/contactTitle.fxml"));
-            Parent root = loader.load();
+            Pane contactTitle = loader.load();
             ContactTitleController controllerTitle = loader.getController();
             controllerTitle.setCurrentContact(contact);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+            BorderPane pane = paneHolder.getPane();
+            pane.setCenter(contactTitle);
         }catch(Exception ex){
             ex.printStackTrace();
-        }*/
-        contactTransfer.transfer(contact);
+        }
     }
 
 }
