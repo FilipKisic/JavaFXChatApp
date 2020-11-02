@@ -1,7 +1,7 @@
 package hr.algebra.controllers;
 
-import hr.algebra.dal.ContactHolderSingleton;
-import hr.algebra.dal.PaneHolderSingleton;
+import hr.algebra.model.ContactProvider;
+import hr.algebra.model.PaneProvider;
 import hr.algebra.model.Contact;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,15 +22,15 @@ public class ContactCardController implements Initializable {
     @FXML
     private Label lbFullName;
     private Contact contact;
-    private final ContactHolderSingleton contactHolder = ContactHolderSingleton.getInstance();
-    private PaneHolderSingleton paneHolder;
+    private final ContactProvider contactHolder = ContactProvider.getInstance();
+    private PaneProvider paneHolder;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.contact = contactHolder.getContact();
         lbFullName.setText(contact.getFullName());
         setImage();
-        paneHolder = PaneHolderSingleton.getInstance();
+        paneHolder = PaneProvider.getInstance();
     }
 
     private void setImage() {

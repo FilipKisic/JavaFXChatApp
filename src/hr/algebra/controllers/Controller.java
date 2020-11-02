@@ -1,6 +1,6 @@
 package hr.algebra.controllers;
 
-import hr.algebra.dal.PaneHolderSingleton;
+import hr.algebra.model.PaneProvider;
 import hr.algebra.utils.FxmlLoader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -43,7 +43,7 @@ public class Controller implements Initializable {
     @FXML
     private VBox vbChat;
     private List<String> userMessages;
-    private PaneHolderSingleton paneHolder;
+    private PaneProvider paneHolder;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,7 +66,7 @@ public class Controller implements Initializable {
 
     public void initializeContactTitle() {
         Pane pane = new FxmlLoader().getScene("contactTitle");
-        paneHolder = PaneHolderSingleton.getInstance();
+        paneHolder = PaneProvider.getInstance();
         paneHolder.setPane(bpContact);
         bpContact.setCenter(pane);
     }

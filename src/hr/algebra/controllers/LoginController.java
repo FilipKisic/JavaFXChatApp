@@ -2,7 +2,7 @@ package hr.algebra.controllers;
 
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
-import hr.algebra.dal.UserHolderSingleton;
+import hr.algebra.model.UserProvider;
 import hr.algebra.model.AppUser;
 import hr.algebra.utils.DialogUtils;
 import javafx.application.Platform;
@@ -44,7 +44,7 @@ public class LoginController implements Initializable {
                     DialogUtils.showErrorDialog("Error", "User does not exist.");
                 }
                 else{
-                    UserHolderSingleton userHolder = UserHolderSingleton.getInstance();
+                    UserProvider userHolder = UserProvider.getInstance();
                     userHolder.setUser(user.get());
                     FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getClassLoader().getResource("view/main.fxml")));
                     Parent root = loader.load();

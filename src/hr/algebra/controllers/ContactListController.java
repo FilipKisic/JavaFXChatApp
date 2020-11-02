@@ -1,9 +1,9 @@
 package hr.algebra.controllers;
 
-import hr.algebra.dal.ContactHolderSingleton;
+import hr.algebra.model.ContactProvider;
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
-import hr.algebra.dal.UserHolderSingleton;
+import hr.algebra.model.UserProvider;
 import hr.algebra.model.AppUser;
 import hr.algebra.model.Contact;
 import hr.algebra.utils.DialogUtils;
@@ -28,7 +28,7 @@ public class ContactListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserHolderSingleton userHolder = UserHolderSingleton.getInstance();
+        UserProvider userHolder = UserProvider.getInstance();
         user = userHolder.getUser();
         repository = RepositoryFactory.getRepository();
         loadContacts();
@@ -41,7 +41,7 @@ public class ContactListController implements Initializable {
             DialogUtils.showErrorDialog("Error", "SqlException", ex.getMessage());
             ex.printStackTrace();
         }
-        ContactHolderSingleton contactHolder = ContactHolderSingleton.getInstance();
+        ContactProvider contactHolder = ContactProvider.getInstance();
         /* fill vbContacts with contactCards */
         for(Contact contact : contacts){
             contactHolder.setContact(contact);

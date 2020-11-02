@@ -2,7 +2,7 @@ package hr.algebra.controllers;
 
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
-import hr.algebra.dal.UserHolderSingleton;
+import hr.algebra.model.UserProvider;
 import hr.algebra.model.AppUser;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,7 +25,7 @@ public class SettingsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        UserHolderSingleton userHolder = UserHolderSingleton.getInstance();
+        UserProvider userHolder = UserProvider.getInstance();
         user = userHolder.getUser();
         initializeTextFields();
         repository = RepositoryFactory.getRepository();
