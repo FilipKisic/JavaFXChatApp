@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.lang.reflect.*;
 
 public class ReflectionUtils {
-    public static void readClassAndMembersInfo(Class<?> clazz) {
-        try (FileWriter docGenerator = new FileWriter("documentation.html")) {
+    public static void readClassAndMembersInfo(Class<?> clazz, FileWriter docGenerator) throws IOException {
             docGenerator.write("<!DOCTYPE html>");
             docGenerator.write("<html>");
             docGenerator.write("<head>");
@@ -19,9 +18,7 @@ public class ReflectionUtils {
             appendConstructors(clazz, docGenerator);
             docGenerator.write("</body>");
             docGenerator.write("</html>");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private static void readClassInfo(Class<?> clazz, FileWriter docGenerator) throws IOException {
@@ -32,11 +29,11 @@ public class ReflectionUtils {
     }
 
     private static void appendPackage(Class<?> clazz, FileWriter docGenerator) throws IOException {
-        docGenerator.write("<p> " + clazz.getPackage().toString() + "</p>");
+        docGenerator.write("<h3> " + clazz.getPackage().toString() + "</h3>");
     }
 
     private static void appendModifiers(Class<?> clazz, FileWriter docGenerator) throws IOException {
-        docGenerator.write("<h3>" + Modifier.toString(clazz.getModifiers()) + " " + clazz.getSimpleName());
+        docGenerator.write("<h2>" + Modifier.toString(clazz.getModifiers()) + " " + clazz.getSimpleName());
     }
 
     private static void appendParent(Class<?> clazz, FileWriter docGenerator, boolean first) throws IOException {
@@ -51,13 +48,13 @@ public class ReflectionUtils {
         if (clazz.getInterfaces().length > 0)
             docGenerator.write(" implements");
         else {
-            docGenerator.write("</h3>");
+            docGenerator.write("</h2>");
             return;
         }
         for (Class<?> infce : clazz.getInterfaces()) {
             docGenerator.write(" " + infce.getSimpleName());
         }
-        docGenerator.write("</h3>");
+        docGenerator.write("</h2>");
     }
 
     private static void appendFields(Class<?> clazz, FileWriter docGenerator) throws IOException {
@@ -123,5 +120,6 @@ public class ReflectionUtils {
             appendParameters(constructor, docGenerator);
             appendExceptions(constructor, docGenerator);
         }
+        docGenerator.write("===============================================" + "<br>");
     }
 }
