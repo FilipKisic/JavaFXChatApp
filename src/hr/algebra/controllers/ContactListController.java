@@ -1,11 +1,10 @@
 package hr.algebra.controllers;
 
-import hr.algebra.model.ContactProvider;
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
-import hr.algebra.model.UserProvider;
-import hr.algebra.model.AppUser;
 import hr.algebra.model.Contact;
+import hr.algebra.model.ContactProvider;
+import hr.algebra.model.UserProvider;
 import hr.algebra.utils.DialogUtils;
 import hr.algebra.utils.FxmlLoader;
 import javafx.fxml.FXML;
@@ -22,7 +21,7 @@ public class ContactListController implements Initializable {
 
     @FXML
     public VBox vbContacts;
-    private AppUser user;
+    private Contact user;
     private Repository repository;
     private List<Contact> contacts;
 
@@ -36,7 +35,7 @@ public class ContactListController implements Initializable {
 
     private void loadContacts() {
         try {
-            contacts = repository.selectUserContacts(user.getIdAppUser());
+            contacts = repository.selectUserContacts(user.getIdContact());
         } catch (SQLException ex) {
             DialogUtils.showErrorDialog("Error", "SqlException", ex.getMessage());
             ex.printStackTrace();

@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -31,7 +30,6 @@ public class Main extends Application {
         primaryStage.show();
 
         createDocumentation();
-        //ReflectionUtils.readClassAndMembersInfo(Contact.class);
     }
 
     private void createDocumentation() {
@@ -51,7 +49,6 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-
 
     public static void main(String[] args) {
         launch(args);

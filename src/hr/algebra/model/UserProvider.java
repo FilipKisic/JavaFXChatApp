@@ -2,7 +2,7 @@ package hr.algebra.model;
 
 public class UserProvider {
 
-    private AppUser user;
+    private Contact user;
     private final static UserProvider INSTANCE = new UserProvider();
 
     private UserProvider(){}
@@ -11,11 +11,11 @@ public class UserProvider {
         return INSTANCE;
     }
 
-    public void setUser(AppUser user){
+    public void setUser(Contact user){
         this.user = user;
     }
 
-    public AppUser getUser(){
+    public Contact getUser(){
         return this.user;
     }
 }

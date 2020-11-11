@@ -13,10 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +44,6 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        /*UserHolderSingleton userHolder = UserHolderSingleton.getInstance();
-        AppUser user = userHolder.getUser();*/
         tfTextContent.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
         initializeBottomMenu();
         initializeContactTitle();
@@ -119,15 +114,18 @@ public class Controller implements Initializable {
     }
 
     private void loadData(){
-        try(FileInputStream serializationStream = new FileInputStream(FILE_NAME);
-            ObjectInputStream objectInputStream = new ObjectInputStream(serializationStream)){
-            userMessages.clear();
-            userMessages = (List<String>) objectInputStream.readObject();
-            for (String message : userMessages){
-                createMessage(message);
+        File file = new File(FILE_NAME);
+        if(file.exists() && !file.isDirectory()) {
+            try (FileInputStream serializationStream = new FileInputStream(FILE_NAME);
+                 ObjectInputStream objectInputStream = new ObjectInputStream(serializationStream)) {
+                userMessages.clear();
+                userMessages = (List<String>) objectInputStream.readObject();
+                for (String message : userMessages) {
+                    createMessage(message);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-        }catch (Exception ex){
-            ex.printStackTrace();
         }
     }
 }

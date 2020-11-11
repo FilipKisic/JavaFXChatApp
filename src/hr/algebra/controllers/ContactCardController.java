@@ -1,8 +1,8 @@
 package hr.algebra.controllers;
 
+import hr.algebra.model.Contact;
 import hr.algebra.model.ContactProvider;
 import hr.algebra.model.PaneProvider;
-import hr.algebra.model.Contact;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -48,14 +48,14 @@ public class ContactCardController implements Initializable {
     }
 
     private void loadContact() {
-        try{
-            FXMLLoader loader =  new FXMLLoader(getClass().getClassLoader().getResource("view/contactTitle.fxml"));
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("view/contactTitle.fxml"));
             Pane contactTitle = loader.load();
             ContactTitleController controllerTitle = loader.getController();
             controllerTitle.setCurrentContact(contact);
             BorderPane pane = paneHolder.getPane();
             pane.setCenter(contactTitle);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }

@@ -20,8 +20,8 @@
             </Label>
         </Pane>
         <Pane id="paneProfileImage" prefHeight="200.0" prefWidth="383.0">
-            <ImageView fitHeight="200.0" fitWidth="200.0" layoutX="92.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="file:/D:/ALGEBRA/5.semestar%20-%20Programiranje%20u%20Javi%202/ChatApp/src/res/images/profile.png" />
+            <ImageView fx:id="ivProfileImage" fitHeight="200.0" fitWidth="200.0" layoutX="92.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../images/default-profile.png" />
             </ImageView>
         </Pane>
         <Pane id="paneFirstName" prefHeight="135.0" prefWidth="383.0">

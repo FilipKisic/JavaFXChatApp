@@ -2,8 +2,8 @@ package hr.algebra.controllers;
 
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
+import hr.algebra.model.Contact;
 import hr.algebra.model.UserProvider;
-import hr.algebra.model.AppUser;
 import hr.algebra.utils.DialogUtils;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -39,7 +39,7 @@ public class LoginController implements Initializable {
             DialogUtils.showErrorDialog("Error", "Login failed", "One or more fields are empty");
         else {
             try {
-                Optional<AppUser> user = repository.selectAppUser(tfUsername.getText(), pfPassword.getText());
+                Optional<Contact> user = repository.authenticateContact(tfUsername.getText(), pfPassword.getText());
                 if(!user.isPresent()){
                     DialogUtils.showErrorDialog("Error", "User does not exist.");
                 }
@@ -73,9 +73,9 @@ public class LoginController implements Initializable {
             DialogUtils.showErrorDialog("Error", "Login failed", "One or more fields are empty");
         else {
             try {
-                Optional<AppUser> user = repository.selectAppUser(tfUsername.getText(), pfPassword.getText());
+                Optional<Contact> user = repository.authenticateContact(tfUsername.getText(), pfPassword.getText());
                 if(!user.isPresent()) {
-                    repository.createAppUser(new AppUser(tfUsername.getText(), pfPassword.getText(), "Name Surname"));
+                    repository.createContact(new Contact(tfUsername.getText(), pfPassword.getText(), "Enter Enter", null));
                     btnLogin.fire();
                 }
                 else
@@ -99,4 +99,5 @@ public class LoginController implements Initializable {
     public void loginUser() {
         btnLogin.fire();
     }
+
 }

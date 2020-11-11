@@ -1,6 +1,5 @@
 package hr.algebra.dal;
 
-import hr.algebra.model.AppUser;
 import hr.algebra.model.Contact;
 
 import java.sql.SQLException;
@@ -9,9 +8,9 @@ import java.util.Optional;
 
 public interface Repository {
 
-    /* APP_USER METHODS */
-    void createAppUser(AppUser appUser) throws SQLException;
-    Optional<AppUser> selectAppUser(String username, String password) throws SQLException;
-    void updateAppUser(int idAppUser, String fullname) throws SQLException;
-    List<Contact> selectUserContacts(int idAppUser) throws SQLException;
+    /* CONTACT METHODS */
+    void createContact(Contact contact) throws SQLException;
+    Optional<Contact> authenticateContact(String username, String password) throws SQLException;
+    void updateContact(int idContact, String fullname) throws SQLException;
+    List<Contact> selectUserContacts(int contactUserID) throws SQLException;
 }
