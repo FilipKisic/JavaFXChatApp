@@ -1,6 +1,11 @@
 package hr.algebra.controllers;
 
+import hr.algebra.dal.Repository;
+import hr.algebra.dal.RepositoryFactory;
+import hr.algebra.model.ContactProvider;
+import hr.algebra.model.Message;
 import hr.algebra.model.PaneProvider;
+import hr.algebra.model.UserProvider;
 import hr.algebra.utils.FxmlLoader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -13,8 +18,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.io.*;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -39,16 +46,21 @@ public class Controller implements Initializable {
     private TextField tfTextContent;
     @FXML
     private VBox vbChat;
-    private List<String> userMessages;
+    private List<Message> userMessages;
     private PaneProvider paneHolder;
+    private UserProvider user;
+    private ContactProvider contact;
+    private Repository repository;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         tfTextContent.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
         initializeBottomMenu();
         initializeContactTitle();
+        user = UserProvider.getInstance();
+        repository = RepositoryFactory.getRepository();
         userMessages = new ArrayList<>();
-        loadData();
+        //loadData();
     }
 
     private void initializeBottomMenu() {
@@ -67,17 +79,27 @@ public class Controller implements Initializable {
     }
 
     public void btnSendClicked() {
-        userMessages.add(tfTextContent.getText());
-        createMessage(tfTextContent.getText());
+        contact = ContactProvider.getInstance();
+        Message message = new Message(tfTextContent.getText(), user.getUser().getIdContact(), contact.getContact().getIdContact());
+        try {
+            repository.createMessage(message);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        userMessages.add(message);
+        createMessage(message);
         tfTextContent.clear();
     }
 
-    private void createMessage(String messageText) {
-        Label message = new Label();
-        message.setText(messageText);
-        message.getStyleClass().add("myMessage");
-        message.setWrapText(true);
-        vbChat.getChildren().add(message);
+    private void createMessage(Message message) {
+        Label messageLabel = new Label();
+        messageLabel.setText(message.getMessageContent());
+        if (message.getFromId() == user.getUser().getIdContact())
+            messageLabel.getStyleClass().add("myMessage");
+        else
+            messageLabel.getStyleClass().add("contactMessage");
+        messageLabel.setWrapText(true);
+        vbChat.getChildren().add(messageLabel);
     }
 
     public void tglbtnContactsIsToggled() {
@@ -105,15 +127,16 @@ public class Controller implements Initializable {
     }
 
     private void saveData() {
-        try(FileOutputStream serializationStream = new FileOutputStream(FILE_NAME);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(serializationStream)){
+        try (FileOutputStream serializationStream = new FileOutputStream(FILE_NAME);
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(serializationStream)) {
             objectOutputStream.writeObject(userMessages);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    private void loadData(){
+    /* SERIALIZATION READ */
+    /*private void loadData(){
         File file = new File(FILE_NAME);
         if(file.exists() && !file.isDirectory()) {
             try (FileInputStream serializationStream = new FileInputStream(FILE_NAME);
@@ -127,9 +150,10 @@ public class Controller implements Initializable {
                 ex.printStackTrace();
             }
         }
-    }
+    }*/
 }
 
-/* TODO:
- *   - contact onClick load chat
- */
+/*TODO
+*  - contact onClick load chat
+*  - align messages left/right based on their ids
+*/

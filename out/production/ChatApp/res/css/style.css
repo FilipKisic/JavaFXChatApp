@@ -60,3 +60,13 @@
     -fx-font-weight: bold;
     -fx-background-radius: 15 15 0 15;
 }
+
+.contactMessage{
+    -fx-background-color: #3A506B;
+    -fx-text-fill: white;
+    -fx-padding: 10 20 10 20;
+    -fx-font-family: 'Segoe UI';
+    -fx-font-size: 18 px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 15 15 0 15;
+}

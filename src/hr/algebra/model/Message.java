@@ -1,15 +1,16 @@
 package hr.algebra.model;
 
-import java.sql.Time;
+import java.io.Serializable;
+import java.sql.Timestamp;
 
-public class Message {
+public class Message implements Serializable {
     private int idMessage;
     private final String messageContent;
     private final int fromId;
     private final int toId;
-    private final Time time;
+    private final Timestamp time;
 
-    public Message(int idMessage, String messageContent, int fromId, int toId, Time time) {
+    public Message(int idMessage, String messageContent, int fromId, int toId, Timestamp time) {
         this.idMessage = idMessage;
         this.messageContent = messageContent;
         this.fromId = fromId;
@@ -17,11 +18,11 @@ public class Message {
         this.time = time;
     }
 
-    public Message(String messageContent, int fromId, int toId, Time time) {
+    public Message(String messageContent, int fromId, int toId) {
         this.messageContent = messageContent;
         this.fromId = fromId;
         this.toId = toId;
-        this.time = time;
+        this.time = new Timestamp(System.currentTimeMillis());
     }
 
     public int getIdMessage() {
@@ -40,7 +41,7 @@ public class Message {
         return toId;
     }
 
-    public Time getTime() {
+    public Timestamp getTime() {
         return time;
     }
 

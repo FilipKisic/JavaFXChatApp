@@ -2,14 +2,12 @@ package hr.algebra.dal.sql;
 
 import hr.algebra.dal.Repository;
 import hr.algebra.model.Contact;
+import hr.algebra.model.Message;
 import javafx.scene.image.Image;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,13 +25,16 @@ public class SqlRepository implements Repository {
     private static final String CREATE_CONTACT = " { call spCreateContact(?, ?, ?, ?) } ";
     private static final String AUTHENTICATE_CONTACT = " { call spAuthenticateContact(?, ?) } ";
     private static final String UPDATE_CONTACT = " { call spUpdateContact(?, ?) } ";
-    private static final String SELECT_USER_CONTACTS = "{ call spSelectUserContacts(?) }";
+    private static final String SELECT_USER_CONTACTS = " { call spSelectUserContacts(?) } ";
+
+    //MESSAGE PROCEDURE CONSTANTS
+    private static final String CREATE_MESSAGE = " { call spCreateMessage(?, ?, ?, ?) } ";
 
     @Override
     public void createContact(Contact contact) throws SQLException {
         DataSource dataSource = DataSourceSingleton.getInstance();
         try (Connection connection = dataSource.getConnection();
-         CallableStatement statement = connection.prepareCall(CREATE_CONTACT)) {
+             CallableStatement statement = connection.prepareCall(CREATE_CONTACT)) {
             statement.setString(1, contact.getUsername());
             statement.setString(2, contact.getPassword());
             statement.setString(3, contact.getFullName());
@@ -94,6 +95,19 @@ public class SqlRepository implements Repository {
             }
         }
         return contacts;
+    }
+
+    @Override
+    public void createMessage(Message message) throws SQLException {
+        DataSource dataSource = DataSourceSingleton.getInstance();
+        try (Connection connection = dataSource.getConnection();
+             CallableStatement statement = connection.prepareCall(CREATE_MESSAGE)) {
+            statement.setBytes(1, message.getMessageContent().getBytes());
+            statement.setInt(2, message.getFromId());
+            statement.setInt(3, message.getToId());
+            statement.setTimestamp(4, message.getTime());
+            statement.executeUpdate();
+        }
     }
 
     private Image getImage(ResultSet resultSet) throws SQLException {

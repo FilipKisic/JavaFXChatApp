@@ -60,4 +60,8 @@ public class ContactCardController implements Initializable {
         }
     }
 
+    /*TODO
+    *  - load chat from database
+    */
+
 }
