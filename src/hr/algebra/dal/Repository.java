@@ -16,4 +16,5 @@ public interface Repository {
     List<Contact> selectUserContacts(int contactUserID) throws SQLException;
     /* MESSAGE METHODS */
     void createMessage(Message message) throws SQLException;
+    List<Message> selectMessages(int userId, int contactId);
 }

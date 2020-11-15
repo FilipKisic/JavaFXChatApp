@@ -21,6 +21,13 @@ public class SqlRepository implements Repository {
     private static final String ID_CONTACT = "IDContact";
     private static final String PROFILE_IMAGE = "ProfileImage";
 
+    //MESSAGE CONSTANTS
+    private static final String ID_MESSAGE = "IDMessage";
+    private static final String MESSAGE_CONTENT = "MessageContent";
+    private static final String FROM_ID = "FromID";
+    private static final String TO_ID = "ToID";
+    private static final String TIME_OF = "TimeOf";
+
     //CONTACT PROCEDURE CONSTANTS
     private static final String CREATE_CONTACT = " { call spCreateContact(?, ?, ?, ?) } ";
     private static final String AUTHENTICATE_CONTACT = " { call spAuthenticateContact(?, ?) } ";
@@ -29,6 +36,7 @@ public class SqlRepository implements Repository {
 
     //MESSAGE PROCEDURE CONSTANTS
     private static final String CREATE_MESSAGE = " { call spCreateMessage(?, ?, ?, ?) } ";
+    private static final String SELECT_MESSAGES = "{ call spSelectConversationMessages(?, ?) }";
 
     @Override
     public void createContact(Contact contact) throws SQLException {
@@ -108,6 +116,31 @@ public class SqlRepository implements Repository {
             statement.setTimestamp(4, message.getTime());
             statement.executeUpdate();
         }
+    }
+
+    @Override
+    public List<Message> selectMessages(int userId, int contactId) {
+        List<Message> messages = new ArrayList<>();
+        DataSource dataSource = DataSourceSingleton.getInstance();
+        try (Connection connection = dataSource.getConnection();
+             CallableStatement statement = connection.prepareCall(SELECT_MESSAGES)) {
+            statement.setInt(1, userId);
+            statement.setInt(2, contactId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    messages.add(new Message(
+                            resultSet.getInt(ID_MESSAGE),
+                            new String(resultSet.getBytes(MESSAGE_CONTENT)),
+                            resultSet.getInt(FROM_ID),
+                            resultSet.getInt(TO_ID),
+                            resultSet.getTimestamp(TIME_OF)
+                    ));
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return messages;
     }
 
     private Image getImage(ResultSet resultSet) throws SQLException {

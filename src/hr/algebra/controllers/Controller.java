@@ -2,15 +2,13 @@ package hr.algebra.controllers;
 
 import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
-import hr.algebra.model.ContactProvider;
-import hr.algebra.model.Message;
-import hr.algebra.model.PaneProvider;
-import hr.algebra.model.UserProvider;
+import hr.algebra.model.*;
 import hr.algebra.utils.FxmlLoader;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -35,7 +33,9 @@ public class Controller implements Initializable {
     @FXML
     public BorderPane bpMenu;
     @FXML
-    public BorderPane bpContact;
+    public ImageView ivContactImage;
+    @FXML
+    public Label lbContactName;
     @FXML
     private ToggleButton tglbtnContacts;
     @FXML
@@ -47,7 +47,6 @@ public class Controller implements Initializable {
     @FXML
     private VBox vbChat;
     private List<Message> userMessages;
-    private PaneProvider paneHolder;
     private UserProvider user;
     private ContactProvider contact;
     private Repository repository;
@@ -56,10 +55,12 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tfTextContent.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
         initializeBottomMenu();
-        initializeContactTitle();
         user = UserProvider.getInstance();
         repository = RepositoryFactory.getRepository();
+        contact = ContactProvider.getInstance();
         userMessages = new ArrayList<>();
+        ControllerProvider controllerProvider = ControllerProvider.getInstance();
+        controllerProvider.setController(this);
         //loadData();
     }
 
@@ -69,37 +70,6 @@ public class Controller implements Initializable {
         tglbtnSettings.setToggleGroup(optionSelection);
         hboxBottom.setSpacing(100.0);
         tglbtnSettings.fire();
-    }
-
-    public void initializeContactTitle() {
-        Pane pane = new FxmlLoader().getScene("contactTitle");
-        paneHolder = PaneProvider.getInstance();
-        paneHolder.setPane(bpContact);
-        bpContact.setCenter(pane);
-    }
-
-    public void btnSendClicked() {
-        contact = ContactProvider.getInstance();
-        Message message = new Message(tfTextContent.getText(), user.getUser().getIdContact(), contact.getContact().getIdContact());
-        try {
-            repository.createMessage(message);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        userMessages.add(message);
-        createMessage(message);
-        tfTextContent.clear();
-    }
-
-    private void createMessage(Message message) {
-        Label messageLabel = new Label();
-        messageLabel.setText(message.getMessageContent());
-        if (message.getFromId() == user.getUser().getIdContact())
-            messageLabel.getStyleClass().add("myMessage");
-        else
-            messageLabel.getStyleClass().add("contactMessage");
-        messageLabel.setWrapText(true);
-        vbChat.getChildren().add(messageLabel);
     }
 
     public void tglbtnContactsIsToggled() {
@@ -117,8 +87,43 @@ public class Controller implements Initializable {
         }
     }
 
+    public void setCurrentContact() {
+        ivContactImage.setImage(contact.getContact().getProfileImage());
+        lbContactName.setText(contact.getContact().getFullName());
+    }
+
+    public void btnSendClicked() {
+        contact = ContactProvider.getInstance();
+        Message message = new Message(tfTextContent.getText(), user.getUser().getIdContact(), contact.getContact().getIdContact());
+        try {
+            repository.createMessage(message);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        userMessages.add(message);
+        createMessage(message);
+        tfTextContent.clear();
+    }
+
     public void sendMessage() {
         btnSend.fire();
+    }
+
+    private void createMessage(Message message) {
+        Label messageLabel = new Label();
+        messageLabel.setText(message.getMessageContent());
+        if (message.getFromId() == user.getUser().getIdContact())
+            messageLabel.getStyleClass().add("myMessage");
+        else
+            messageLabel.getStyleClass().add("contactMessage");
+        messageLabel.setWrapText(true);
+        vbChat.getChildren().add(messageLabel);
+    }
+
+    public void loadMessages() {
+        vbChat.getChildren().clear();
+        List<Message> messages = repository.selectMessages(user.getUser().getIdContact(), contact.getContact().getIdContact());
+        messages.forEach(m -> createMessage(m));
     }
 
     public void stopApplication() {
@@ -154,6 +159,6 @@ public class Controller implements Initializable {
 }
 
 /*TODO
-*  - contact onClick load chat
-*  - align messages left/right based on their ids
-*/
+ *  - contact onClick load chat
+ *  - align messages left/right based on their ids
+ */
