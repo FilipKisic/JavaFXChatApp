@@ -149,3 +149,7 @@ select * from ChatMessage
 
 SELECT * FROM ChatMessage WHERE (FromID = 1 AND ToID = 2) OR (ToID = 1 AND FromID = 2)
 ORDER BY TimeOf ASC
+
+exec spSelectConversationMessages 1,2
+
+select * from ChatMessage
