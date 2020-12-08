@@ -6,7 +6,7 @@
     -fx-background-color: #FFF;
 }
 
-.chatButton, .settingsButton, #btnEmoticon, #btnSend{
+.chatButton, .settingsButton, #btnUploadImage, #btnSend{
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-color: transparent;
@@ -28,8 +28,8 @@
     -fx-background-image: url('/images/settings-active.png');
 }
 
-#btnEmoticon{
-    -fx-background-image: url('/images/happy-icon.png');
+#btnUploadImage{
+    -fx-background-image: url('/images/upload-image.png');
 }
 
 #btnSend{

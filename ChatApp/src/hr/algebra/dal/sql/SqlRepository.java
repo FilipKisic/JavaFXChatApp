@@ -110,7 +110,7 @@ public class SqlRepository implements Repository {
         DataSource dataSource = DataSourceSingleton.getInstance();
         try (Connection connection = dataSource.getConnection();
              CallableStatement statement = connection.prepareCall(CREATE_MESSAGE)) {
-            statement.setBytes(1, message.getMessageContent().getBytes());
+            statement.setBytes(1, message.getMessageContent());
             statement.setInt(2, message.getFromId());
             statement.setInt(3, message.getToId());
             statement.setTimestamp(4, message.getTime());
@@ -130,7 +130,7 @@ public class SqlRepository implements Repository {
                 while (resultSet.next()) {
                     messages.add(new Message(
                             resultSet.getInt(ID_MESSAGE),
-                            new String(resultSet.getBytes(MESSAGE_CONTENT)),
+                            resultSet.getBytes(MESSAGE_CONTENT),
                             resultSet.getInt(FROM_ID),
                             resultSet.getInt(TO_ID),
                             resultSet.getTimestamp(TIME_OF)
