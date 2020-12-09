@@ -10,10 +10,10 @@ import hr.algebra.networking.ClientThread;
 import hr.algebra.utils.FileUtils;
 import hr.algebra.utils.FxmlLoader;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -22,10 +22,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +111,12 @@ public class Controller implements Initializable {
 
     public void btnSendClicked() {
         contact = ContactProvider.getInstance();
-        Message message = new Message(tfTextContent.getText().getBytes(), user.getUser().getIdContact(), contact.getContact().getIdContact());
+        Message message = new Message(tfTextContent.getText().getBytes(), user.getUser().getIdContact(), contact.getContact().getIdContact(), false);
+        //createMessage(message);
+        processMessage(message);
+    }
+
+    private void processMessage(Message message) {
         thread.sendMessage(message);
         try {
             repository.createMessage(message);
@@ -125,10 +131,24 @@ public class Controller implements Initializable {
     public void sendMessage() {
         btnSend.fire();
     }
-
-    public void createMessage(Message message) {
+    //refactor method
+    public void createMessage(Message message){
         Label messageLabel = new Label();
-        messageLabel.setText(new String(message.getMessageContent()));
+        if (message.isImage()) {
+            ByteArrayInputStream bais = new ByteArrayInputStream(message.getMessageContent());
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(bais);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            ImageView imageView = new ImageView(SwingFXUtils.toFXImage(image, null));
+            imageView.setPreserveRatio(true);
+            imageView.setFitHeight(image.getHeight());
+            imageView.setFitWidth(vbChat.getWidth() / 1.5);
+            messageLabel.setGraphic(imageView);
+        } else
+            messageLabel.setText(new String(message.getMessageContent()));
         if (message.getFromId() == user.getUser().getIdContact())
             messageLabel.getStyleClass().add("myMessage");
         else
@@ -162,15 +182,9 @@ public class Controller implements Initializable {
         File file = FileUtils.uploadFileDialog(btnUploadImage.getScene().getWindow(), "jpg", "png");
         if (file != null) {
             try {
-                Image image = new Image(file.toURI().toString());
-                ImageView imageView = new ImageView(image);
-                imageView.setPreserveRatio(true);
-                imageView.setFitHeight(image.getHeight());
-                imageView.setFitWidth(vbChat.getWidth() / 1.5);
-                Label label = new Label();
-                label.setGraphic(imageView);
-                label.getStyleClass().add("myMessage");
-                vbChat.getChildren().add(label);
+                byte[] messageContent = Files.readAllBytes(file.toPath());
+                Message message = new Message(messageContent, user.getUser().getIdContact(), contact.getContact().getIdContact(), true);
+                processMessage(message);
                 Platform.runLater(() -> {
                     scrlpChatScrollPane.setVvalue(1.0);
                 });
@@ -200,4 +214,5 @@ public class Controller implements Initializable {
 
 /*TODO
  *  - align messages left/right based on their ids
+ *  - remove createMessage procedure call from client -> move to server
  */

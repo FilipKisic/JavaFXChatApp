@@ -58,7 +58,6 @@ public class ServerThread extends Thread {
             socket.joinGroup(address);
 
             while (true) {
-                System.err.println("Server listening...");
                 byte[] numberOfMessageBytes = new byte[4];
                 DatagramPacket packet = new DatagramPacket(numberOfMessageBytes, numberOfMessageBytes.length);
                 socket.receive(packet);

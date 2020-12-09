@@ -27,6 +27,7 @@ public class SqlRepository implements Repository {
     private static final String FROM_ID = "FromID";
     private static final String TO_ID = "ToID";
     private static final String TIME_OF = "TimeOf";
+    private static final String IS_IMAGE = "IsImage";
 
     //CONTACT PROCEDURE CONSTANTS
     private static final String CREATE_CONTACT = " { call spCreateContact(?, ?, ?, ?) } ";
@@ -35,7 +36,7 @@ public class SqlRepository implements Repository {
     private static final String SELECT_USER_CONTACTS = " { call spSelectUserContacts(?) } ";
 
     //MESSAGE PROCEDURE CONSTANTS
-    private static final String CREATE_MESSAGE = " { call spCreateMessage(?, ?, ?, ?) } ";
+    private static final String CREATE_MESSAGE = " { call spCreateMessage(?, ?, ?, ?, ?) } ";
     private static final String SELECT_MESSAGES = "{ call spSelectConversationMessages(?, ?) }";
 
     @Override
@@ -114,6 +115,7 @@ public class SqlRepository implements Repository {
             statement.setInt(2, message.getFromId());
             statement.setInt(3, message.getToId());
             statement.setTimestamp(4, message.getTime());
+            statement.setBoolean(5, message.isImage());
             statement.executeUpdate();
         }
     }
@@ -133,7 +135,8 @@ public class SqlRepository implements Repository {
                             resultSet.getBytes(MESSAGE_CONTENT),
                             resultSet.getInt(FROM_ID),
                             resultSet.getInt(TO_ID),
-                            resultSet.getTimestamp(TIME_OF)
+                            resultSet.getTimestamp(TIME_OF),
+                            resultSet.getBoolean(IS_IMAGE)
                     ));
                 }
             }

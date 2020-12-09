@@ -10,27 +10,26 @@ public class Message implements Externalizable {
     private int fromId;
     private int toId;
     private Timestamp time;
+    private boolean isImage;
 
     public Message() {
     }
 
-    public Message(int idMessage, byte[] messageContent, int fromId, int toId, Timestamp time) {
+    public Message(int idMessage, byte[] messageContent, int fromId, int toId, Timestamp time, boolean isImage) {
         this.idMessage = idMessage;
         this.messageContent = messageContent;
         this.fromId = fromId;
         this.toId = toId;
         this.time = time;
+        this.isImage = isImage;
     }
 
-    public Message(byte[] messageContent, int fromId, int toId) {
+    public Message(byte[] messageContent, int fromId, int toId, boolean isImage) {
         this.messageContent = messageContent;
         this.fromId = fromId;
         this.toId = toId;
         this.time = new Timestamp(System.currentTimeMillis());
-    }
-
-    public int getIdMessage() {
-        return idMessage;
+        this.isImage = isImage;
     }
 
     public byte[] getMessageContent() {
@@ -49,12 +48,17 @@ public class Message implements Externalizable {
         return time;
     }
 
+    public boolean isImage() {
+        return isImage;
+    }
+
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(idMessage);
         out.writeInt(fromId);
         out.writeInt(toId);
         out.writeUTF(time.toString());
+        out.writeBoolean(isImage);
         out.writeInt(messageContent.length);
         out.write(messageContent);
     }
@@ -65,6 +69,7 @@ public class Message implements Externalizable {
         fromId = in.readInt();
         toId = in.readInt();
         time = Timestamp.valueOf(in.readUTF());
+        isImage = in.readBoolean();
         messageContent = new byte[in.readInt()];
         in.readFully(messageContent);
     }

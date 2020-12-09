@@ -30,6 +30,7 @@ CREATE TABLE ChatMessage
 	FromID INT NOT NULL,
 	ToID INT NOT NULL,
 	TimeOf DATETIME NOT NULL,
+	IsImage BIT NOT NULL,
 	FOREIGN KEY (FromID) REFERENCES Contact(IDContact),
 	FOREIGN KEY (ToID) REFERENCES Contact(IDContact)
 )
@@ -106,10 +107,11 @@ CREATE PROC spCreateMessage
 	@MessageContent VARBINARY(MAX),
 	@FromID INT,
 	@ToID INT,
-	@TimeOf DATETIME
+	@TimeOf DATETIME,
+	@IsImage BIT
 AS
 BEGIN
-	INSERT INTO ChatMessage (MessageContent, FromID, ToID, TimeOf) VALUES (@MessageContent, @FromID, @ToID, @TimeOf)
+	INSERT INTO ChatMessage (MessageContent, FromID, ToID, TimeOf, IsImage) VALUES (@MessageContent, @FromID, @ToID, @TimeOf, @IsImage)
 END
 GO
 
@@ -134,6 +136,7 @@ EXEC spAddContact 1, 3
 EXEC spAddContact 1, 4
 EXEC spAddContact 2, 1
 EXEC spAddContact 2, 4
+EXEC spAddContact 3, 1
 
 /* ADDING IMAGES */
 UPDATE Contact SET ProfileImage = (SELECT * FROM OPENROWSET(BULK 'D:\ALGEBRA\5.semestar - Programiranje u Javi 2\ChatApp\src\res\images\profile.png', SINGLE_BLOB) img)
