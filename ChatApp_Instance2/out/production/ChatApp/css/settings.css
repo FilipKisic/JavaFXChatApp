@@ -1,0 +1,16 @@
+#hBoxTitle, #paneFirstName, #paneLastName, #paneProfileImage{
+    -fx-background-color: #0B132B;
+}
+
+.paneName{
+    -fx-background-color: #1C2541;
+    -fx-background-radius: 20;
+}
+
+.textFieldName{
+    -fx-border-color: #1C2541 #1C2541 #FFF #1C2541;
+    -fx-background-color: #1C2541;
+    -fx-background-insets: 0, 0 0 1 0;
+    -fx-border-width: 2px;
+    -fx-text-inner-color: white;
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="570.0" prefWidth="383.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.controllers.ContactListController">
+   <VBox id="vBoxContacts" fx:id="vbContacts" prefHeight="570.0" prefWidth="383.0" spacing="5.0">
+      <Pane id="hBoxTitle" prefHeight="100.0" prefWidth="383.0">
+         <Label layoutX="118.0" layoutY="29.0" text="Contacts" textFill="WHITE">
+            <font>
+               <Font name="Segoe UI Bold" size="36.0" />
+            </font>
+         </Label>
+      </Pane>
+   </VBox>
+</AnchorPane>
