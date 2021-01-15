@@ -1,7 +1,9 @@
 package hr.algebra.controllers;
 
+import hr.algebra.dal.Repository;
+import hr.algebra.dal.RepositoryFactory;
 import hr.algebra.networking.ServerThread;
-import javafx.event.ActionEvent;
+import hr.algebra.rmi.ChatServer;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
@@ -11,9 +13,12 @@ import java.util.ResourceBundle;
 public class Controller implements Initializable {
     public Button btnStart;
     private ServerThread serverThread;
+    public ChatServer chatServer;
+    private Repository repository;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
     }
 
     private void initServerThread() {
@@ -24,5 +29,7 @@ public class Controller implements Initializable {
 
     public void startServer() {
         initServerThread();
+        repository = RepositoryFactory.getRepository();
+        chatServer = new ChatServer(repository);
     }
 }

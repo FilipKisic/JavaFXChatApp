@@ -1,75 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<GridPane id="gpLogin" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.controllers.LoginController">
-    <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="475.0" minWidth="10.0" prefWidth="400.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="596.0" minWidth="10.0" prefWidth="500.0" />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    </rowConstraints>
-    <Label contentDisplay="CENTER" text="Username:" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0"
+            stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hr.algebra.controllers.LoginController">
+    <ImageView fitHeight="600.0" fitWidth="600.0" layoutX="14.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../images/login-background.png"/>
+    </ImageView>
+    <Label layoutX="771.0" layoutY="74.0" text="Welcome">
         <font>
-          <Font name="Segoe UI Bold" size="20.0" />
-        </font>
-      <GridPane.margin>
-         <Insets bottom="5.0" />
-      </GridPane.margin>
-    </Label>
-    <Label text="Password:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
-        <font>
-          <Font name="Segoe UI Bold" size="20.0" />
+            <Font name="Poppins SemiBold" size="48.0"/>
         </font>
     </Label>
-    <TextField fx:id="tfUsername" promptText="enter here" styleClass="textField" GridPane.columnIndex="1" GridPane.valignment="BOTTOM">
+    <TextField fx:id="tfUsername" layoutX="771.0" layoutY="166.0" prefHeight="50.0" prefWidth="300.0" promptText="Enter email address"
+               styleClass="textField">
         <font>
-          <Font name="Segoe UI" size="20.0" />
+            <Font name="Poppins Medium" size="16.0"/>
         </font>
-        <GridPane.margin>
-          <Insets left="15.0" right="50.0" />
-        </GridPane.margin>
     </TextField>
-   <PasswordField fx:id="pfPassword" onAction="#loginUser" promptText="enter here" styleClass="textField" GridPane.columnIndex="1" GridPane.rowIndex="1">
-      <font>
-         <Font name="Segoe UI" size="20.0" />
-      </font>
-      <GridPane.margin>
-         <Insets left="15.0" right="50.0" />
-      </GridPane.margin>
-   </PasswordField>
-    <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-        <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLoginClicked" prefWidth="150.0" styleClass="btnLogin" text="Login" textFill="WHITE">
-           <font>
-               <Font name="Segoe UI Bold" size="20.0" />
-           </font>
-           <HBox.margin>
-               <Insets left="60.0" />
-           </HBox.margin>
-        </Button>
-        <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#btnRegisterClicked" prefWidth="150.0" styleClass="btnRegister" text="Register" textFill="WHITE">
-           <font>
-               <Font name="Segoe UI Bold" size="20.0" />
-           </font>
-           <HBox.margin>
-               <Insets left="50.0" />
-           </HBox.margin>
-        </Button>
-    </HBox>
-    <stylesheets>
-        <URL value="@../css/login.css" />
-    </stylesheets>
-</GridPane>
+    <Button fx:id="btnLogin" layoutX="771.0" layoutY="309.0" mnemonicParsing="false" onAction="#btnLoginClicked" prefHeight="50.0"
+            prefWidth="300.0" styleClass="btnLogin" text="Log in" textFill="WHITE">
+        <font>
+            <Font name="Poppins Medium" size="16.0"/>
+        </font>
+    </Button>
+    <Button fx:id="btnRegister" layoutX="771.0" layoutY="382.0" mnemonicParsing="false" onAction="#btnRegisterClicked" prefHeight="50.0"
+            prefWidth="300.0" styleClass="btnRegister" text="Register" textFill="WHITE">
+        <font>
+            <Font name="Poppins Medium" size="16.0"/>
+        </font>
+    </Button>
+    <PasswordField fx:id="pfPassword" layoutX="771.0" layoutY="233.0" onAction="#loginUser" prefHeight="50.0" prefWidth="300.0"
+                   promptText="Enter password" styleClass="textField">
+        <font>
+            <Font name="Poppins Medium" size="16.0"/>
+        </font>
+    </PasswordField>
+</AnchorPane>

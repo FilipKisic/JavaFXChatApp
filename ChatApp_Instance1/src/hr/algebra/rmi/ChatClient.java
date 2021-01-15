@@ -58,7 +58,7 @@ public class ChatClient {
     }
 
     private void fetchServer() {
-        final Hashtable properties = new Hashtable();
+        final Hashtable<String, String> properties = new Hashtable<>();
         properties.put(Context.INITIAL_CONTEXT_FACTORY, RegistryContextFactory.class.getName());
         properties.put(Context.PROVIDER_URL, RMI_URL);
 

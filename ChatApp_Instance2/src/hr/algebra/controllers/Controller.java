@@ -10,8 +10,8 @@ import hr.algebra.networking.ClientThread;
 import hr.algebra.rmi.ChatClient;
 import hr.algebra.utils.FileUtils;
 import hr.algebra.utils.FxmlLoader;
+import hr.algebra.utils.MessageUtils;
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -23,9 +23,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.sql.SQLException;
@@ -133,33 +133,8 @@ public class Controller implements Initializable {
         btnSend.fire();
     }
 
-    //refactor method, create MessageUtils?
-    public void createMessage(Message message){
-        System.err.println("CREATE");
-        Label messageLabel = new Label();
-        if (message.isImage()) {
-            ByteArrayInputStream bais = new ByteArrayInputStream(message.getMessageContent());
-            BufferedImage image;
-            try {
-                image = ImageIO.read(bais);
-                ImageView imageView = new ImageView(SwingFXUtils.toFXImage(image, null));
-                imageView.setPreserveRatio(true);
-                imageView.setFitHeight(image.getHeight());
-                imageView.setFitWidth(vbChat.getWidth() / 1.5);
-                messageLabel.setGraphic(imageView);
-            } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Invalid image");
-                alert.show();
-            }
-        } else
-            messageLabel.setText(new String(message.getMessageContent()));
-        if (message.getFromId() == user.getUser().getIdContact())
-            messageLabel.getStyleClass().add("myMessage");
-        else
-            messageLabel.getStyleClass().add("contactMessage");
-        messageLabel.setWrapText(true);
-        vbChat.getChildren().add(messageLabel);
+    public void showMessage(Message message){
+        MessageUtils.createMessage(message, vbChat, user);
         scrlpChatScrollPane.applyCss();
         scrlpChatScrollPane.layout();
         scrlpChatScrollPane.setVvalue(1.0);
@@ -168,9 +143,8 @@ public class Controller implements Initializable {
     public void loadMessages() {
         vbChat.getChildren().clear();
         List<Message> messages = repository.selectMessages(user.getUser().getIdContact(), contact.getContact().getIdContact());
-        messages.forEach(this::createMessage);
+        messages.forEach(this::showMessage);
     }
-
 
     private void saveData() {
         try (FileOutputStream serializationStream = new FileOutputStream(FILE_NAME);
@@ -201,7 +175,7 @@ public class Controller implements Initializable {
     }
 
     public void displayMessage(Message message){
-        Platform.runLater(() -> Controller.this.createMessage(message));
+        Platform.runLater(() -> Controller.this.showMessage(message));
     }
 
     /* SERIALIZATION READ */
@@ -221,8 +195,3 @@ public class Controller implements Initializable {
         }
     }*/
 }
-
-/*TODO
- *  - align messages left/right based on their ids
- *  - remove createMessage procedure call from client -> move to server
- */

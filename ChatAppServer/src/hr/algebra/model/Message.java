@@ -56,6 +56,10 @@ public class Message implements Externalizable {
         return time;
     }
 
+    public boolean isImage() {
+        return isImage;
+    }
+
     @Override
     public void writeExternal(ObjectOutput out) throws IOException {
         out.writeInt(idMessage);

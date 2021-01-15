@@ -26,7 +26,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+    @FXML
     public Button btnLogin;
+    @FXML
+    public Button btnRegister;
     @FXML
     private TextField tfUsername;
     @FXML

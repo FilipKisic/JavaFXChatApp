@@ -10,34 +10,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="570.0" prefWidth="383.0" stylesheets="@../css/settings.css" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.controllers.SettingsController">
+<AnchorPane prefHeight="570.0" prefWidth="383.0" stylesheets="@../css/settings.css" xmlns="http://javafx.com/javafx/8.0.202"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.controllers.SettingsController">
     <VBox prefHeight="570.0" prefWidth="383.0">
         <Pane id="hBoxTitle" prefHeight="100.0" prefWidth="383.0">
-            <Label layoutX="135.0" layoutY="29.0" text="Profile" textFill="WHITE">
+            <Label layoutX="133.0" layoutY="24.0" text="Profile" textFill="WHITE">
                 <font>
-                    <Font name="Segoe UI Bold" size="36.0" />
+                    <Font name="Poppins Bold" size="36.0"/>
                 </font>
             </Label>
         </Pane>
         <Pane id="paneProfileImage" prefHeight="200.0" prefWidth="383.0">
             <ImageView fx:id="ivProfileImage" fitHeight="200.0" fitWidth="200.0" layoutX="92.0" pickOnBounds="true" preserveRatio="true">
-                <Image url="@../images/default-profile.png" />
+                <Image url="@../images/default-profile.png"/>
             </ImageView>
         </Pane>
         <Pane id="paneFirstName" prefHeight="135.0" prefWidth="383.0">
             <Pane layoutX="42.0" layoutY="18.0" prefHeight="100.0" prefWidth="300.0" styleClass="paneName">
                 <VBox layoutX="10.0" prefHeight="100.0" prefWidth="280.0">
-                    <Label text="Your first name:" textFill="WHITE">
+                    <Label text="Your first name:">
                         <VBox.margin>
-                            <Insets bottom="5.0" left="10.0" top="10.0" />
+                            <Insets bottom="5.0" left="10.0" top="10.0"/>
                         </VBox.margin>
                         <font>
-                            <Font name="Segoe UI Bold" size="13.0" />
+                            <Font name="Poppins Bold" size="13.0"/>
                         </font>
                     </Label>
                     <TextField fx:id="tfFirstName" onMouseExited="#saveData" styleClass="textFieldName" text="Arthur">
                         <font>
-                            <Font name="Segoe UI Bold" size="20.0" />
+                            <Font name="Poppins Bold" size="20.0"/>
                         </font>
                     </TextField>
                 </VBox>
@@ -46,17 +47,17 @@
         <Pane id="paneLastName" prefHeight="135.0" prefWidth="383.0">
             <Pane layoutX="42.0" layoutY="18.0" prefHeight="100.0" prefWidth="300.0" styleClass="paneName">
                 <VBox layoutX="10.0" prefHeight="100.0" prefWidth="280.0">
-                    <Label text="Your last name:" textFill="WHITE">
+                    <Label text="Your last name:">
                         <VBox.margin>
-                            <Insets bottom="5.0" left="10.0" top="10.0" />
+                            <Insets bottom="5.0" left="10.0" top="10.0"/>
                         </VBox.margin>
                         <font>
-                            <Font name="Segoe UI Bold" size="13.0" />
+                            <Font name="Segoe UI Bold" size="13.0"/>
                         </font>
                     </Label>
                     <TextField fx:id="tfLastName" onMouseExited="#saveData" styleClass="textFieldName" text="Coin">
                         <font>
-                            <Font name="Segoe UI Bold" size="20.0" />
+                            <Font name="Segoe UI Bold" size="20.0"/>
                         </font>
                     </TextField>
                 </VBox>

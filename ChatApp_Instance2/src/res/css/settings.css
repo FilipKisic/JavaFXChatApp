@@ -1,16 +1,14 @@
 #hBoxTitle, #paneFirstName, #paneLastName, #paneProfileImage{
-    -fx-background-color: #0B132B;
+    -fx-background-color: #4460F1;
 }
 
 .paneName{
-    -fx-background-color: #1C2541;
-    -fx-background-radius: 20;
+    -fx-background-color: #E9EFF6;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
 }
 
 .textFieldName{
-    -fx-border-color: #1C2541 #1C2541 #FFF #1C2541;
-    -fx-background-color: #1C2541;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-border-width: 2px;
-    -fx-text-inner-color: white;
+    -fx-background-color: #E9EFF6;
+    -fx-text-inner-color: black;
 }

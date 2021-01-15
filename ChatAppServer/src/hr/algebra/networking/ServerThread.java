@@ -12,10 +12,10 @@ import java.util.Properties;
 
 public class ServerThread extends Thread {
 
-    public static int SERVER_PORT_SEND;
-    public static int SERVER_PORT_RECEIVE;
-    public static int CLIENT_PORT;
-    public static String GROUP;
+    private static int SERVER_PORT_SEND;
+    private static int SERVER_PORT_RECEIVE;
+    private static int CLIENT_PORT;
+    private static String GROUP;
 
     static {
         try {
@@ -48,6 +48,7 @@ public class ServerThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
@@ -69,8 +70,9 @@ public class ServerThread extends Thread {
                 try (ByteArrayInputStream bais = new ByteArrayInputStream(messageBytes);
                      ObjectInputStream ois = new ObjectInputStream(bais)) {
                     Message message = (Message) ois.readObject();
-                    if(message != null)
+                    if (message != null) {
                         sendMessage(message);
+                    }
                 }
             }
 

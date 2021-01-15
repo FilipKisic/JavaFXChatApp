@@ -74,10 +74,7 @@ public class ClientThread extends Thread {
                      ObjectInputStream ois = new ObjectInputStream(bais)) {
                     Message message = (Message) ois.readObject();
                     if (message != null)
-                        Platform.runLater(() -> {
-                            //show message
-                            controller.createMessage(message);
-                        });
+                        Platform.runLater(() -> controller.showMessage(message));
                 }
             }
         } catch (IOException | ClassNotFoundException e) {

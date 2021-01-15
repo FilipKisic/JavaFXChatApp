@@ -1,23 +1,20 @@
-#gpLogin{
-    -fx-background-image: url('/images/lg-background.jpg');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}
 
 .textField{
-    -fx-border-color: #FFF #FFF #3A506B #FFF;
-    -fx-background-color: #FFF;
-    -fx-background-insets: 0, 0 0 1 0;
-    -fx-border-width: 2px;
+    -fx-background-color: #E9EFF6;
+    -fx-border-width: 1px;
     -fx-text-inner-color: black;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
 }
 
 .btnLogin{
-    -fx-background-color: #0B132B;
-    -fx-background-radius: 15;
+    -fx-background-color: #4460F1;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
 }
 
 .btnRegister{
-    -fx-background-color: #3A506B;
-    -fx-background-radius: 15;
+    -fx-background-color: #0036BE;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
 }
