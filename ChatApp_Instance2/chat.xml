@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<chat.xml>
+    <message>
+        <idMessage>106</idMessage>
+        <messageContent>Hello!</messageContent>
+        <fromId>1</fromId>
+        <toId>2</toId>
+        <time>2021-01-23 12:44:44.753</time>
+        <isImage>false</isImage>
+    </message>
+    <message>
+        <idMessage>107</idMessage>
+        <messageContent>How are you?</messageContent>
+        <fromId>1</fromId>
+        <toId>2</toId>
+        <time>2021-01-23 12:44:48.497</time>
+        <isImage>false</isImage>
+    </message>
+    <message>
+        <idMessage>108</idMessage>
+        <messageContent>Helou!</messageContent>
+        <fromId>2</fromId>
+        <toId>1</toId>
+        <time>2021-01-23 12:53:41.257</time>
+        <isImage>false</isImage>
+    </message>
+    <message>
+        <idMessage>109</idMessage>
+        <messageContent>I'm great, what about you?</messageContent>
+        <fromId>2</fromId>
+        <toId>1</toId>
+        <time>2021-01-23 12:53:49.65</time>
+        <isImage>false</isImage>
+    </message>
+</chat.xml>

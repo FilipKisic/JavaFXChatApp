@@ -5,7 +5,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.DirectoryStream;
@@ -23,12 +26,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         loader = new FXMLLoader(getClass().getClassLoader().getResource("view/login.fxml"));
         Parent root = loader.load();
-        primaryStage.setTitle("Login page");
-        primaryStage.setScene(new Scene(root, 1200, 650));
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Scene scene = new Scene(root, 1200, 650);
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
         primaryStage.show();
-
         createDocumentation();
     }
 

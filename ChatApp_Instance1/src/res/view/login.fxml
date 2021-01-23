@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0"
-            stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="hr.algebra.controllers.LoginController">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0"
+            prefWidth="1200.0" styleClass="mainPane" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.202"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hr.algebra.controllers.LoginController">
     <ImageView fitHeight="600.0" fitWidth="600.0" layoutX="14.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
         <Image url="@../images/login-background.png"/>
     </ImageView>
@@ -44,4 +44,19 @@
             <Font name="Poppins Medium" size="16.0"/>
         </font>
     </PasswordField>
+    <Button id="btnFacebook" layoutX="991.0" layoutY="498.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0"
+            styleClass="roundedButton" stylesheets="@../css/login.css"/>
+    <Button id="btnGoogle" layoutX="771.0" layoutY="498.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0"
+            styleClass="roundedButton" stylesheets="@../css/login.css"/>
+    <Button id="btnApple" layoutX="881.0" layoutY="498.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="80.0"
+            styleClass="roundedButton" stylesheets="@../css/login.css"/>
+    <Label layoutX="872.0" layoutY="461.0" text="or continue with" textFill="#797979">
+        <font>
+            <Font name="Poppins Medium" size="12.0"/>
+        </font>
+    </Label>
+    <Button id="btnExit" layoutX="14.0" layoutY="13.0" minHeight="5.0" minWidth="5.0" mnemonicParsing="false"
+            onAction="#btnExitPressed" prefHeight="15.0" prefWidth="15.0" styleClass="btnExit" stylesheets="@../css/login.css"/>
+    <Button id="btnMinimize" layoutX="36.0" layoutY="13.0" minHeight="5.0" minWidth="5.0" mnemonicParsing="false"
+            onAction="#btnMinimizePressed" prefHeight="15.0" prefWidth="15.0" styleClass="btnMinimize" stylesheets="@../css/login.css"/>
 </AnchorPane>

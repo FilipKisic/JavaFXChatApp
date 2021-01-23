@@ -7,10 +7,13 @@ import hr.algebra.model.ContactProvider;
 import hr.algebra.model.UserProvider;
 import hr.algebra.utils.DialogUtils;
 import hr.algebra.utils.FxmlLoader;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -49,4 +52,11 @@ public class ContactListController implements Initializable {
         }
     }
 
+    public void btnExitPressed() {
+        System.exit(0);
+    }
+
+    public void btnMinimizePressed(ActionEvent actionEvent) {
+        ((Stage) ((Button) actionEvent.getSource()).getScene().getWindow()).setIconified(true);
+    }
 }

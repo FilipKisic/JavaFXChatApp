@@ -32,6 +32,10 @@ public class Message implements Externalizable {
         this.isImage = isImage;
     }
 
+    public int getIdMessage() {
+        return idMessage;
+    }
+
     public byte[] getMessageContent() {
         return messageContent;
     }
@@ -73,8 +77,4 @@ public class Message implements Externalizable {
         messageContent = new byte[in.readInt()];
         in.readFully(messageContent);
     }
-
-    /*TODO
-     *  - differentiate between image and string as messageContent
-     */
 }

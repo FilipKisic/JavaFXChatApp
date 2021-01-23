@@ -4,10 +4,13 @@ import hr.algebra.dal.Repository;
 import hr.algebra.dal.RepositoryFactory;
 import hr.algebra.model.Contact;
 import hr.algebra.model.UserProvider;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -54,5 +57,13 @@ public class SettingsController implements Initializable {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void btnExitPressed() {
+        System.exit(0);
+    }
+
+    public void btnMinimizePressed(ActionEvent actionEvent) {
+        ((Stage) ((Button) actionEvent.getSource()).getScene().getWindow()).setIconified(true);
     }
 }

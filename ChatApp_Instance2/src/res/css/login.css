@@ -1,4 +1,10 @@
 
+.mainPane{
+    -fx-background-color: #FFF;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
 .textField{
     -fx-background-color: #E9EFF6;
     -fx-border-width: 1px;
@@ -7,14 +13,61 @@
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
 }
 
+.roundedButton{
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8);
+}
+
+.roundedButton:pressed{
+    -fx-effect: innershadow(gaussian, rgba( 0, 0, 0, 0.37 ), 10, 0, 2, 8);
+}
+
+#btnGoogle{
+    -fx-background-image: url('/images/google40.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnApple{
+    -fx-background-image: url('/images/apple60.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnFacebook{
+    -fx-background-image: url('/images/facebook48.png');
+    -fx-background-size: 50;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
 .btnLogin{
     -fx-background-color: #4460F1;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
 }
 
+.btnLogin:pressed, .btnRegister:pressed, .btnExit:pressed, .btnMinimize:pressed{
+    -fx-effect: innershadow(gaussian, rgba( 0, 0, 0, 0.37 ), 10, 0, 2, 8);
+}
+
 .btnRegister{
     -fx-background-color: #0036BE;
     -fx-background-radius: 8;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
+}
+
+.btnExit{
+    -fx-background-color: #4460F1;
+    -fx-background-radius: 100;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
+}
+
+.btnMinimize{
+    -fx-background-color: #0036BE;
+    -fx-background-radius: 100;
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
 }

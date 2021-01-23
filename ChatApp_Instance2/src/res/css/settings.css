@@ -12,3 +12,19 @@
     -fx-background-color: #E9EFF6;
     -fx-text-inner-color: black;
 }
+
+.btnExit{
+    -fx-background-color: #F04F4E;
+    -fx-background-radius: 100;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
+}
+
+.btnMinimize{
+    -fx-background-color: #CCC;
+    -fx-background-radius: 100;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
+}
+
+.btnExit:pressed, .btnMinimize:pressed{
+    -fx-effect: innershadow(gaussian, rgba( 0, 0, 0, 0.37 ), 10, 0, 2, 8);
+}

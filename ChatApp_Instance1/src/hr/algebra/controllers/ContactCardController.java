@@ -49,7 +49,4 @@ public class ContactCardController implements Initializable {
         controller.setCurrentContact();
         controller.loadMessages();
     }
-    /*TODO
-    *  - load chat from database
-    */
 }

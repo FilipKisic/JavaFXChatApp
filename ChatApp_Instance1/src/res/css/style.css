@@ -1,9 +1,25 @@
+.mainPane{
+    -fx-background-color: #FFF;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
 #hBoxTitle, #vBoxContacts, #hboxBottom{
     -fx-background-color: #4460F1;
 }
 
+#hboxBottom{
+    -fx-background-radius: 0 0 0 20;
+    -fx-border-radius: 0 0 0 20;
+}
+
 #hBoxContactInfo{
     -fx-background-color: #FFF;
+}
+
+.contactList, #vBoxContacts, #hBoxTitle, #vBoxMenu{
+    -fx-background-radius: 20 0 0 0;
+    -fx-border-radius: 20 0 0 0;
 }
 
 .chatButton, .settingsButton, #btnUploadImage, #btnSend{
@@ -35,7 +51,29 @@
 .settingsButton:selected{
     -fx-background-image: url('/images/settings-active.png');
     -fx-background-radius: 15;
-    -fx-effect: innershadow( gaussian, rgba( 0, 0, 0, 0.37 ), 10, 0, 2, 8);
+    -fx-effect: innershadow(gaussian, rgba( 0, 0, 0, 0.37 ), 10, 0, 2, 8);
+}
+
+.roundButton{
+    -fx-background-color: white;
+    -fx-background-radius: 25;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8);
+}
+
+.roundButton:pressed{
+    -fx-effect: innershadow(gaussian, rgba( 0, 0, 0, 0.37 ), 10, 0, 2, 8);
+}
+
+#btnExport{
+    -fx-background-image: url('/images/export.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+#btnImport{
+    -fx-background-image: url('/images/import.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
 
 #btnUploadImage{
@@ -90,4 +128,20 @@
     -fx-background-color: white;
     -fx-background-radius: 8;
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8);
+}
+
+.btnExit{
+    -fx-background-color: #F04F4E;
+    -fx-background-radius: 100;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
+}
+
+.btnMinimize{
+    -fx-background-color: #CCC;
+    -fx-background-radius: 100;
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.37), 32, 0, 2, 8)
+}
+
+.btnExit:pressed, .btnMinimize:pressed{
+    -fx-effect: innershadow(gaussian, rgba( 0, 0, 0, 0.37 ), 10, 0, 2, 8);
 }

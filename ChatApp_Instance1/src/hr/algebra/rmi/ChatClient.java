@@ -24,7 +24,7 @@ public class ChatClient {
     private ChatProtocol chatProtocol;
     private ChatProtocol server;
 
-    public ChatClient(Controller controller, int id) {
+    public ChatClient(Controller controller) {
         this.controller = controller;
         System.out.println("CLIENT: " + RMI_CLIENT);
         publishClient();
@@ -39,12 +39,12 @@ public class ChatClient {
     private void publishClient() {
         chatProtocol = new ChatProtocol() {
             @Override
-            public void registerClient(int i) throws RemoteException {
+            public void registerClient(int i) {
 
             }
 
             @Override
-            public void sendMessage(Message message) throws RemoteException {
+            public void sendMessage(Message message) {
                 controller.displayMessage(message);
             }
         };

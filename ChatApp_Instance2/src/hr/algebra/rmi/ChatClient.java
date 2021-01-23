@@ -15,7 +15,7 @@ import java.util.Hashtable;
 
 public class ChatClient {
 
-    private static final String RMI_CLIENT = "client1";
+    private static final String RMI_CLIENT = "client2";
     private static final String RMI_SERVER = "server";
     private static final String RMI_URL = "rmi://localhost:1099";
     private static final int RMI_PORT = 1099;
@@ -30,7 +30,7 @@ public class ChatClient {
         publishClient();
         fetchServer();
         try {
-            server.registerClient(1);
+            server.registerClient(2);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -39,12 +39,12 @@ public class ChatClient {
     private void publishClient() {
         chatProtocol = new ChatProtocol() {
             @Override
-            public void registerClient(int i) throws RemoteException {
+            public void registerClient(int i) {
 
             }
 
             @Override
-            public void sendMessage(Message message) throws RemoteException {
+            public void sendMessage(Message message) {
                 controller.displayMessage(message);
             }
         };
@@ -58,7 +58,7 @@ public class ChatClient {
     }
 
     private void fetchServer() {
-        final Hashtable properties = new Hashtable();
+        final Hashtable<String, String> properties = new Hashtable<>();
         properties.put(Context.INITIAL_CONTEXT_FACTORY, RegistryContextFactory.class.getName());
         properties.put(Context.PROVIDER_URL, RMI_URL);
 

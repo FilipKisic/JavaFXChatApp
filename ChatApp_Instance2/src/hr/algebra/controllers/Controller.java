@@ -8,28 +8,26 @@ import hr.algebra.model.Message;
 import hr.algebra.model.UserProvider;
 import hr.algebra.networking.ClientThread;
 import hr.algebra.rmi.ChatClient;
+import hr.algebra.utils.DOMUtils;
 import hr.algebra.utils.FileUtils;
 import hr.algebra.utils.FxmlLoader;
 import hr.algebra.utils.MessageUtils;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.nio.file.Files;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -48,6 +46,12 @@ public class Controller implements Initializable {
     @FXML
     public ScrollPane scrlpChatScrollPane;
     @FXML
+    public Button btnExport;
+    @FXML
+    public Button btnImport;
+    @FXML
+    public GridPane mainPane;
+    @FXML
     private ToggleButton tglbtnContacts;
     @FXML
     private ToggleButton tglbtnSettings;
@@ -57,7 +61,7 @@ public class Controller implements Initializable {
     private TextField tfTextContent;
     @FXML
     private VBox vbChat;
-    private List<Message> userMessages;
+    private List<Message> allMessages;
     private UserProvider user;
     private ContactProvider contact;
     private Repository repository;
@@ -68,15 +72,19 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         tfTextContent.setFont(Font.font("Segoe UI", FontWeight.BOLD, 18));
         initializeBottomMenu();
-        user = UserProvider.getInstance();
-        repository = RepositoryFactory.getRepository();
-        contact = ContactProvider.getInstance();
-        userMessages = new ArrayList<>();
-        chatClient = new ChatClient(this);
+        initializeObjects();
         initializeClientThread();
         ControllerProvider controllerProvider = ControllerProvider.getInstance();
         controllerProvider.setController(this);
         //loadData();
+    }
+
+    private void initializeObjects() {
+        mainPane.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, CornerRadii.EMPTY, Insets.EMPTY)));
+        user = UserProvider.getInstance();
+        repository = RepositoryFactory.getRepository();
+        contact = ContactProvider.getInstance();
+        chatClient = new ChatClient(this);
     }
 
     private void initializeClientThread() {
@@ -125,7 +133,7 @@ public class Controller implements Initializable {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-        userMessages.add(message);
+        scrlpChatScrollPane.setVvalue(1.0);
         tfTextContent.clear();
     }
 
@@ -133,7 +141,7 @@ public class Controller implements Initializable {
         btnSend.fire();
     }
 
-    public void showMessage(Message message){
+    public void showMessage(Message message) {
         MessageUtils.createMessage(message, vbChat, user);
         scrlpChatScrollPane.applyCss();
         scrlpChatScrollPane.layout();
@@ -142,21 +150,11 @@ public class Controller implements Initializable {
 
     public void loadMessages() {
         vbChat.getChildren().clear();
-        List<Message> messages = repository.selectMessages(user.getUser().getIdContact(), contact.getContact().getIdContact());
-        messages.forEach(this::showMessage);
-    }
-
-    private void saveData() {
-        try (FileOutputStream serializationStream = new FileOutputStream(FILE_NAME);
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(serializationStream)) {
-            objectOutputStream.writeObject(userMessages);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        allMessages = repository.selectMessages(user.getUser().getIdContact(), contact.getContact().getIdContact());
+        allMessages.forEach(this::showMessage);
     }
 
     public void stopApplication() {
-        saveData();
         Platform.exit();
     }
 
@@ -174,8 +172,19 @@ public class Controller implements Initializable {
         }
     }
 
-    public void displayMessage(Message message){
-        Platform.runLater(() -> Controller.this.showMessage(message));
+    public void displayMessage(Message message) {
+        Platform.runLater(() -> showMessage(message));
+    }
+
+    public void btnExportPressed() {
+        DOMUtils.saveChat(FXCollections.observableArrayList(allMessages));
+        vbChat.getChildren().clear();
+    }
+
+    public void btnImportPressed() {
+        allMessages = DOMUtils.loadMessages();
+        vbChat.getChildren().clear();
+        allMessages.forEach(this::showMessage);
     }
 
     /* SERIALIZATION READ */
